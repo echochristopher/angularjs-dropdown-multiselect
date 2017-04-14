@@ -52,6 +52,8 @@ export default function dropdownMultiselectController(
 		onMaxSelectionReached: angular.noop,
 		onSelectionChanged: angular.noop,
 		onClose: angular.noop,
+		onOpen: angular.noop,
+		onSearchChanged: angular.noop,
 	};
 
 	const settings = {
@@ -153,6 +155,8 @@ export default function dropdownMultiselectController(
 		orderFunction,
 	});
 
+	$scope.$watch('input.searchFilter', $scope.externalEvents.onSearchChanged);
+
 	$scope.externalEvents.onInitDone();
 
 	function focusFirstOption() {
@@ -167,7 +171,10 @@ export default function dropdownMultiselectController(
 	function toggleDropdown() {
 		if ($scope.open) {
 			$scope.close();
-		} else { $scope.open = true; }
+		} else {
+			$scope.open = true;
+			$scope.externalEvents.onOpen();
+		}
 		if ($scope.settings.keyboardControls) {
 			if ($scope.open) {
 				if ($scope.settings.selectionLimit === 1 && $scope.settings.enableSearch) {

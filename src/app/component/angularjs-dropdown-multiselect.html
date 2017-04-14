@@ -66,6 +66,7 @@
                ng-keydown="keyDownSearchDefault($event); keyDownSearch($event, input.searchFilter);"
                ng-style="{width: '100%'}"
                ng-model="input.searchFilter"
+							 ng-model-options='{ debounce: 500 }'
                placeholder="{{texts.searchPlaceholder}}" />
       </div>
     </li>
@@ -135,6 +136,9 @@
     <li class="divider"
         ng-show="settings.selectionLimit > 1">
     </li>
+		<li role="presentation" data-ng-show="loading" class="text-center">
+			<span data-ng-class="settings.loadingClasses"></span>
+		</li>
     <li role="presentation"
         ng-show="settings.selectionLimit > 1">
       <a role="menuitem">{{selectedModel.length}} {{texts.selectionOf}} {{settings.selectionLimit}} {{texts.selectionCount}}</a>

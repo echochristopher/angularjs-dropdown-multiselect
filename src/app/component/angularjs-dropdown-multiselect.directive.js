@@ -9,6 +9,7 @@ export default function dropdownMultiselectDirective() {
 			extraSettings: '=',
 			events: '=',
 			searchFilter: '=?',
+			loading: '=?',
 			translationTexts: '=',
 			disabled: '=',
 		},
