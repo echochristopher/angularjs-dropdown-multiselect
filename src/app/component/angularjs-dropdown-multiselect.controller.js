@@ -329,6 +329,9 @@ export default function dropdownMultiselectController(
 	function setSelectedItem(option, dontRemove = false, fireSelectionChange) {
 		let exists;
 		let indexOfOption;
+		if ($scope.required) {
+			dontRemove = true;
+		}
 		if (angular.isDefined(settings.idProperty)) {
 			exists = getIndexByProperty($scope.selectedModel, option, settings.idProperty) !== -1;
 			indexOfOption = getIndexByProperty($scope.selectedModel, option, settings.idProperty);

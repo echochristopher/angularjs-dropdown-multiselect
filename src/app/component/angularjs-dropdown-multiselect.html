@@ -1,6 +1,6 @@
-<div class="multiselect-parent btn-group dropdown-multiselect"
+<div class="multiselect-parent btn-group dropdown-multiselect" ng-mouseover="hover = true" ng-mouseleave="hover = false"
      ng-class="{open: open}">
-     <div ng-transclude="toggleDropdown" ng-click="toggleDropdown()">
+		 <div ng-transclude="toggleDropdown" ng-click="toggleDropdown()" data-ng-hide="showClear">
       <button ng-disabled="disabled"
               type="button"
               class="dropdown-toggle"
@@ -9,6 +9,14 @@
         {{getButtonText()}}&nbsp;<span class="caret"></span>
       </button>
     </div>
+		<div data-ng-show="showClear">
+     <span ng-transclude="toggleDropdown" ng-click="toggleDropdown()">
+	      <a class="dropdown-toggle" ng-class="settings.buttonClasses" style="max-width: 90%;">
+	        {{getButtonText()}}
+	      </a>
+    	</span>
+			<span class="fa fa-times text-danger" data-ng-click="selectedModel = []" data-ng-show="selectedModel.length > 0 && hover && !required"></span>
+		</div>
   <ul class="dropdown-menu dropdown-menu-form"
       ng-if="open"
       ng-style="{display: open ? 'block' : 'none', height : settings.scrollable ? settings.scrollableHeight : 'auto', overflow: 'auto' }">
@@ -60,14 +68,19 @@
         class="divider">
     </li>
     <li ng-if="settings.enableSearch">
-      <div class="dropdown-header">
+      <div class="dropdown-header input-group">
         <input type="text"
-               class="form-control searchField"
+               class="form-control searchField input-sm"
                ng-keydown="keyDownSearchDefault($event); keyDownSearch($event, input.searchFilter);"
                ng-style="{width: '100%'}"
                ng-model="input.searchFilter"
 							 ng-model-options='{ debounce: 500 }'
                placeholder="{{texts.searchPlaceholder}}" />
+				 <span class="input-group-btn" style="width: auto;">
+           <button type="button" class="btn btn-default btn-sm" aria-label="Clear" data-ng-disabled="!input.searchFilter" data-ng-click="input.searchFilter = ''">
+             <span class="fa fa-times"></span>
+           </button>
+         </span>
       </div>
     </li>
     <li ng-if="settings.enableSearch"
